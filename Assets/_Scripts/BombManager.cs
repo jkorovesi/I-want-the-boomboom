@@ -12,7 +12,7 @@ public class BombManager : MonoBehaviour {
 
     private void Update()
     {
-        Debug.Log(playerWithBomb);
+        
     }
 
 

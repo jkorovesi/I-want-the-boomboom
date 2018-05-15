@@ -8,7 +8,6 @@ public class P1Controller : MonoBehaviour
     public Rigidbody2D rb;
     public float rotationSpeed;
 
-    bool bufferBool = true;
 
 
     //SpawnPlayerScript spawnPlayerScript;
@@ -37,6 +36,7 @@ public class P1Controller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
 
         if (gameObject.tag == "Player1")
         {
@@ -70,43 +70,34 @@ public class P1Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        if(BombManager.playerWithBomb != 1)
+
+        if (coll.gameObject.tag == "Player2" && BombManager.playerWithBomb == 2 && ImmuneChecker.p2Immune == false)
         {
-            if (coll.gameObject.tag == "Player2" && BombManager.playerWithBomb == 2 && bufferBool == true)
-            {
-                BombManager.playerWithBomb = 1;
-                StartCoroutine("bufferClock");
-                
+            BombManager.playerWithBomb = 1;
+            Debug.Log(BombManager.playerWithBomb);
+            StartCoroutine("immuneClock");
 
-            }
-
-            if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && bufferBool == true)
-            {
-                BombManager.playerWithBomb = 1;
-                StartCoroutine("bufferClock");
-                
-
-            }
         }
 
-        if (BombManager.playerWithBomb == 1)
+        if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && ImmuneChecker.p3Immune == false)
         {
-            if (coll.gameObject.tag == "Player2" || coll.gameObject.tag == "Player3")
-                {
-                    StartCoroutine("bufferClock");
-                }
-        }
+            BombManager.playerWithBomb = 1;
+            Debug.Log(BombManager.playerWithBomb);
+            StartCoroutine("immuneClock");
 
+        }
 
 
     }
 
-    IEnumerator bufferClock()
+
+    IEnumerator immuneClock()
     {
 
-            bufferBool = false;
-            yield return new WaitForSeconds(2);
-            bufferBool = true;
+        ImmuneChecker.p1Immune = true;
+        yield return new WaitForSeconds(2);
+        ImmuneChecker.p1Immune = false;
+
 
     }
 

@@ -63,6 +63,7 @@
     <Compile Include="Assets\_Scripts\DestroyBumper.cs" />
     <Compile Include="Assets\_Scripts\ExitGame.cs" />
     <Compile Include="Assets\_Scripts\GetBomb.cs" />
+    <Compile Include="Assets\_Scripts\ImmuneChecker.cs" />
     <Compile Include="Assets\_Scripts\ItemController.cs" />
     <Compile Include="Assets\_Scripts\ItemGenerator.cs" />
     <Compile Include="Assets\_Scripts\MenuStart.cs" />

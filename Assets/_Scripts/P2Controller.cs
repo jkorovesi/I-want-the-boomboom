@@ -8,8 +8,6 @@ public class P2Controller : MonoBehaviour
     public Rigidbody2D rb;
     public float rotationSpeed;
 
-    bool bufferBool = true;
-
 
     void Start()
     {
@@ -68,45 +66,31 @@ public class P2Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        
-
-        if (BombManager.playerWithBomb != 2)
+        if (coll.gameObject.tag == "Player1" && BombManager.playerWithBomb == 1 && ImmuneChecker.p1Immune == false)
         {
-            if (coll.gameObject.tag == "Player1" && BombManager.playerWithBomb == 1 && bufferBool == true)
-            {
-                BombManager.playerWithBomb = 2;
-                StartCoroutine("bufferClock");
-                
+            BombManager.playerWithBomb = 2;
+            Debug.Log(BombManager.playerWithBomb);
+            StartCoroutine("immuneClock");
 
-            }
-
-            if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && bufferBool == true)
-            {
-                BombManager.playerWithBomb = 2;
-                StartCoroutine("bufferClock");
-                
-
-            }
         }
 
-        if (BombManager.playerWithBomb == 2)
+        if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && ImmuneChecker.p3Immune == false)
         {
-            if (coll.gameObject.tag == "Player1" || coll.gameObject.tag == "Player3")
-            {
-                StartCoroutine("bufferClock");
-            }
+            BombManager.playerWithBomb = 1;
+            Debug.Log(BombManager.playerWithBomb);
+            StartCoroutine("immuneClock");
+
         }
-
-
 
     }
 
-    IEnumerator bufferClock()
+    IEnumerator immuneClock()
     {
 
-            bufferBool = false;
-            yield return new WaitForSeconds(1);
-            bufferBool = true;
+        ImmuneChecker.p2Immune = true;
+        yield return new WaitForSeconds(2);
+        ImmuneChecker.p2Immune = false;
+
 
     }
 
