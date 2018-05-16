@@ -15,6 +15,7 @@ TagManager:
   - image1
   - image3
   - image2
+  - SpawnP1
   layers:
   - Default
   - TransparentFX

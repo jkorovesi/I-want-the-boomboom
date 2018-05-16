@@ -14,8 +14,7 @@ public class TimerManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
-        
+
     }
 
     // Update is called once per frame
@@ -28,7 +27,8 @@ public class TimerManager : MonoBehaviour
             StartCoroutine("LoseTime");
             timerRunning = true;
         }
-        else if(!BombManager.playerHasBomb && timerRunning)
+
+        if(!BombManager.playerHasBomb && timerRunning)
         {
             StopCoroutine("LoseTime");
             timerRunning = false;

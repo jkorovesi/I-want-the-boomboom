@@ -22,6 +22,7 @@ public class P3Controller : MonoBehaviour
         //    Debug.Log(Input.GetJoystickNames() + "Controller In");
 
         //}
+
     }
 
     private void Awake()

@@ -22,6 +22,8 @@ public class P2Controller : MonoBehaviour
         //    Debug.Log(Input.GetJoystickNames() + "Controller In");
 
         //}
+
+
     }
 
     private void Awake()
@@ -76,7 +78,7 @@ public class P2Controller : MonoBehaviour
 
         if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && ImmuneChecker.p3Immune == false)
         {
-            BombManager.playerWithBomb = 1;
+            BombManager.playerWithBomb = 2;
             Debug.Log(BombManager.playerWithBomb);
             StartCoroutine("immuneClock");
 

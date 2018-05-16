@@ -25,11 +25,13 @@ public class P1Controller : MonoBehaviour
             Debug.Log(Input.GetJoystickNames() + "Controller In");
 
         }
+
+
     }
 
     private void Awake()
     {
-        //spawnPlayerScript = GameObject.FindGameObjectWithTag("Spawner").GetComponent<SpawnPlayerScript>();
+        
     }
 
 
@@ -89,6 +91,7 @@ public class P1Controller : MonoBehaviour
 
 
     }
+
 
 
     IEnumerator immuneClock()

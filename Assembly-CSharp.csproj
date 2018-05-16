@@ -67,6 +67,7 @@
     <Compile Include="Assets\_Scripts\ItemController.cs" />
     <Compile Include="Assets\_Scripts\ItemGenerator.cs" />
     <Compile Include="Assets\_Scripts\MenuStart.cs" />
+    <Compile Include="Assets\_Scripts\OutOfBounds.cs" />
     <Compile Include="Assets\_Scripts\P1Controller.cs" />
     <Compile Include="Assets\_Scripts\P1ItemController.cs" />
     <Compile Include="Assets\_Scripts\P2Controller.cs" />

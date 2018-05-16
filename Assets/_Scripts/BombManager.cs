@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class BombManager : MonoBehaviour {
@@ -12,9 +12,20 @@ public class BombManager : MonoBehaviour {
 
     private void Update()
     {
-        
+        if(TimerUI.explode == true)
+        {
+            StartCoroutine("endGame");
+
+        }
     }
 
 
+    IEnumerator endGame()
+    {
 
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+
+    }
 }
