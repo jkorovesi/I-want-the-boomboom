@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerUI : MonoBehaviour
+public class TimerManager : MonoBehaviour
 {
 
-    public int timeLeft = 60;
+    public int timeLeft = 10;
     public Text countdownText;
     public bool timerRunning = false;
-    public static bool explode = false;
+    public static bool explode;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        
+        explode = false;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        countdownText.text = ("Time Left = " + timeLeft);
+        countdownText.text = ("Time Left " + timeLeft);
 
         if (BombManager.playerHasBomb && !timerRunning)
         {
@@ -38,7 +38,7 @@ public class TimerUI : MonoBehaviour
         {
             StopCoroutine("LoseTime");
             explode = true;
-            countdownText.text = "BOOM!";
+
         }
     }
 

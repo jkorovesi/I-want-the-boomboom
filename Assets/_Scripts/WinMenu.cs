@@ -24,7 +24,7 @@ public class WinMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        winner = PlayerDeath.winner;
+        winner = BombManager.winner;
         deadText.text = ("Player " + winner + " has exploded...");
         winText.text = ("Player " + winner + " WINS!");
     }

@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\_Scripts\BombManager.cs" />
+    <Compile Include="Assets\_Scripts\BoomTextDisplay.cs" />
     <Compile Include="Assets\_Scripts\DestroyBumper.cs" />
     <Compile Include="Assets\_Scripts\ExitGame.cs" />
     <Compile Include="Assets\_Scripts\GetBomb.cs" />
@@ -76,13 +77,11 @@
     <Compile Include="Assets\_Scripts\P3ItemController.cs" />
     <Compile Include="Assets\_Scripts\PauseMenu.cs" />
     <Compile Include="Assets\_Scripts\PikePosition.cs" />
-    <Compile Include="Assets\_Scripts\PlayerDeath.cs" />
     <Compile Include="Assets\_Scripts\PlayerWithBombManager.cs" />
     <Compile Include="Assets\_Scripts\pushMove.cs" />
     <Compile Include="Assets\_Scripts\SpawnItemScript.cs" />
     <Compile Include="Assets\_Scripts\SpawnPlayerScript.cs" />
     <Compile Include="Assets\_Scripts\TimerManager.cs" />
-    <Compile Include="Assets\_Scripts\TimerUI.cs" />
     <Compile Include="Assets\_Scripts\WinMenu.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Joshua/Documents/GitHub/I-want-the-boomboom/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
