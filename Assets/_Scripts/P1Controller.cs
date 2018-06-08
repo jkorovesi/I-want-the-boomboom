@@ -7,8 +7,10 @@ public class P1Controller : MonoBehaviour
     public float speed;
     public Rigidbody2D rb;
     public float rotationSpeed;
-
-
+    public GameObject highlight;
+    public AudioSource audioSource;
+    public AudioClip accelerate;
+    public AudioClip bombGet;
 
     //SpawnPlayerScript spawnPlayerScript;
 
@@ -19,12 +21,24 @@ public class P1Controller : MonoBehaviour
 
     private void Update()
     {
-
-        if (Input.GetKey("joystick button 0"))
+        if (BombManager.playerWithBomb == 1)
         {
-            Debug.Log(Input.GetJoystickNames() + "Controller In");
-
+            highlight.SetActive(true);
         }
+        else
+        {
+            highlight.SetActive(false);
+        }
+
+        if(TimerManager.explode == true)
+        {
+            Destroy(this);
+        }
+        //if (Input.GetKey("joystick button 0"))
+        //{
+        //    Debug.Log(Input.GetJoystickNames() + "Controller In");
+
+        //}
 
 
     }
@@ -58,13 +72,14 @@ public class P1Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey("joystick 1 button 0"))
             {
                 rb.AddForce(gameObject.transform.up * speed);
-
+                audioSource.clip = accelerate;
+                audioSource.Play();
             }
 
             if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey("joystick 1 button 1"))
             {
                 rb.AddForce(gameObject.transform.up * -speed);
-                //PlayOneShot(engIdle);
+
             }
         }
         
@@ -76,6 +91,7 @@ public class P1Controller : MonoBehaviour
         if (coll.gameObject.tag == "Player2" && BombManager.playerWithBomb == 2 && ImmuneChecker.p2Immune == false)
         {
             BombManager.playerWithBomb = 1;
+            audioSource.PlayOneShot(bombGet);
             Debug.Log(BombManager.playerWithBomb);
             StartCoroutine("immuneClock");
 
@@ -84,6 +100,7 @@ public class P1Controller : MonoBehaviour
         if (coll.gameObject.tag == "Player3" && BombManager.playerWithBomb == 3 && ImmuneChecker.p3Immune == false)
         {
             BombManager.playerWithBomb = 1;
+            audioSource.PlayOneShot(bombGet);
             Debug.Log(BombManager.playerWithBomb);
             StartCoroutine("immuneClock");
 

@@ -10,7 +10,7 @@ public class WinMenu : MonoBehaviour {
     public GameObject menuObj;
     public GameObject winTextObj;
     public Text deadText;
-    public Text winText;
+    public Text winText; 
     public Button restart;
     public Button menu;
     int winner;

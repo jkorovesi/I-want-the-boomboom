@@ -25,6 +25,10 @@ public class P3ItemController : MonoBehaviour
     public GameObject pushPref;
     public Transform pushSpawn;
 
+    public AudioSource audioSource;
+    public AudioClip itemGet;
+    public AudioClip bombGet;
+
     GameObject bumperObj;
     GameObject pikeObj;
 
@@ -39,36 +43,40 @@ public class P3ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TimerManager.explode == true)
+        {
+            Destroy(this);
+        }
 
-            if (p3Item == null)
-            {
-                image3.sprite = null;
-            }
-
-            switch (p3Item)
+        switch (p3Item)
             {
                 case "Speed Boost":
+                    image3.enabled = true;
                     image3.sprite = speedBoostImg;
                     if (Input.GetKeyDown(KeyCode.B) || Input.GetKey("joystick 3 button 3"))
                     {
                         StartCoroutine(SpeedTime());
                         playerController.speed = 60;
                         p3Item = null;
+                        image3.enabled = false;
                     }
                     break;
 
                 case "Bumper":
+                    image3.enabled = true;
                     image3.sprite = bumperImg;
                     if (Input.GetKeyDown(KeyCode.B))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Destroy(bumperObj);
                         bumperObj = Instantiate(bumperPref, bumperSpawn.position, bumperSpawn.rotation);
                         p3Item = null;
-
+                        image3.enabled = false;
                     }
                     break;
 
                 case "Size":
+                    image3.enabled = true;
                     image3.sprite = sizeImg;
                     if (Input.GetKeyDown(KeyCode.B) || Input.GetKey("joystick 3 button 3"))
                     {
@@ -82,25 +90,33 @@ public class P3ItemController : MonoBehaviour
                             transform.localScale = new Vector3(0.5f, 0.5f, 1f);
                         }
                         p3Item = null;
+                        image3.enabled = false;
                     }
                     break;
 
                 case "Push":
+                    image3.enabled = true;
                     image3.sprite = pushImg;
                     if (Input.GetKeyDown(KeyCode.B) || Input.GetKey("joystick 3 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Instantiate(pushPref, pushSpawn.position, pushSpawn.rotation);
                         p3Item = null;
+                        image3.enabled = false;
                     }
                     break;
 
                 case "Pike":
+                    image3.enabled = true;
                     image3.sprite = pikeImg;
                     if (Input.GetKeyDown(KeyCode.B) || Input.GetKey("joystick 3 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         pikeObj = Instantiate(pikePrefab, pikeSpawn.position, pikeSpawn.rotation);
                         pikeObj.GetComponent<PikePosition>().pikeSpawnTransform = pikeSpawn;
+                        pikeObj.transform.parent = this.transform;
                         p3Item = null;
+                        image3.enabled = false;
                     }
                     break;
             }
@@ -133,11 +149,20 @@ public class P3ItemController : MonoBehaviour
         {
 
             p3Item = ItemGenerator.GetRandomItem();
+            audioSource.PlayOneShot(itemGet);
             Destroy(coll.gameObject);
 
 
 
             SpawnItemScript.itemsOnStage--;
+        }
+
+        if (coll.gameObject.tag == "Bomb")
+        {
+            BombManager.playerWithBomb = 3;
+            BombManager.playerHasBomb = true;
+            audioSource.PlayOneShot(bombGet);
+            Destroy(coll.gameObject);
         }
     }
 

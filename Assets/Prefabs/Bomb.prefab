@@ -21,10 +21,9 @@ GameObject:
   - component: {fileID: 4458808019728878}
   - component: {fileID: 212717020752892548}
   - component: {fileID: 58713323055761512}
-  - component: {fileID: 114898068227661096}
   m_Layer: 0
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,17 +56,6 @@ CircleCollider2D:
   m_Offset: {x: -0.015541173, y: -0.09670067}
   serializedVersion: 2
   m_Radius: 0.44301566
---- !u!114 &114898068227661096
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1844675562633550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 475223006690b5942afcdaf45f9b92cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212717020752892548
 SpriteRenderer:
   m_ObjectHideFlags: 1

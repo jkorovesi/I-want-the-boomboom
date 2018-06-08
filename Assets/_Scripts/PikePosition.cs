@@ -8,6 +8,7 @@ public class PikePosition : MonoBehaviour {
 
     private void Awake()
     {
+
         StartCoroutine(PikeTime());
     }
 

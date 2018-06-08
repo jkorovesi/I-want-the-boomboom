@@ -25,6 +25,10 @@ public class P2ItemController : MonoBehaviour
     public GameObject pushPref;
     public Transform pushSpawn;
 
+    public AudioSource audioSource;
+    public AudioClip itemGet;
+    public AudioClip bombGet;
+
     GameObject bumperObj;
     GameObject pikeObj;
 
@@ -39,73 +43,88 @@ public class P2ItemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TimerManager.explode == true)
+        {
+            Destroy(this);
+        }
 
 
-       
 
         if (this.tag == "Player2")
         {
-            if (p2Item == null)
-            {
-                image2.sprite = null;
-            }
+
 
             switch (p2Item)
             {
                 case "Speed Boost":
+                    image2.enabled = true;
                     image2.sprite = speedBoostImg;
                     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey("joystick 2 button 3"))
                     {
                         StartCoroutine(SpeedTime());
                         playerController.speed = 60;
                         p2Item = null;
+                        image2.enabled = false;
                     }
                     break;
 
                 case "Bumper":
+                    image2.enabled = true;
                     image2.sprite = bumperImg;
                     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey("joystick 2 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Destroy(bumperObj);
                         bumperObj = Instantiate(bumperPref, bumperSpawn.position, bumperSpawn.rotation);
                         p2Item = null;
+                        image2.enabled = false;
 
                     }
                     break;
 
                 case "Size":
+                    image2.enabled = true;
                     image2.sprite = sizeImg;
                     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey("joystick 2 button 3"))
                     {
                         StartCoroutine(SizeTime());
                         if (BombManager.playerWithBomb == 2)
                         {
-                            transform.localScale = new Vector3(5f, 5f, 1f);
+                            transform.localScale = new Vector3(0.5f, 0.5f, 1f);
                         }
                         else
                         {
-                            transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+                            
+                            transform.localScale = new Vector3(4f, 4f, 1f);
                         }
                         p2Item = null;
+                        image2.enabled = false;
                     }
                     break;
 
                 case "Push":
+                    image2.enabled = true;
                     image2.sprite = pushImg;
                     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey("joystick 2 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Instantiate(pushPref, pushSpawn.position, pushSpawn.rotation);
                         p2Item = null;
+                        image2.enabled = false;
                     }
                     break;
 
                 case "Pike":
+                    image2.enabled = true;
                     image2.sprite = pikeImg;
                     if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey("joystick 2 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         pikeObj = Instantiate(pikePrefab, pikeSpawn.position, pikeSpawn.rotation);
                         pikeObj.GetComponent<PikePosition>().pikeSpawnTransform = pikeSpawn;
+                        pikeObj.transform.parent = this.transform;
                         p2Item = null;
+                        image2.enabled = false;
                     }
                     break;
             }
@@ -139,11 +158,20 @@ public class P2ItemController : MonoBehaviour
         {
 
                 p2Item = ItemGenerator.GetRandomItem();
+                audioSource.PlayOneShot(itemGet);
                 Destroy(coll.gameObject);
 
 
 
             SpawnItemScript.itemsOnStage--;
+        }
+
+        if (coll.gameObject.tag == "Bomb")
+        {
+            BombManager.playerWithBomb = 2;
+            BombManager.playerHasBomb = true;
+            audioSource.PlayOneShot(bombGet);
+            Destroy(coll.gameObject);
         }
     }
 

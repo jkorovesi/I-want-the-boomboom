@@ -23,22 +23,24 @@ public class OutOfBounds : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter2D(Collider2D other)
+
+
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player1")
         {
-            if(BombManager.playerWithBomb == 1)
+            if (BombManager.playerWithBomb == 1)
             {
                 BombManager.playerWithBomb = 0;
                 BombManager.playerHasBomb = false;
                 spawnItemScript.SpawnBomb();
-                
+
             }
             Destroy(other.gameObject);
             spawnPlayerScript.player1Exist = false;
             spawnPlayerScript.SpawnPlayer1();
-            p1Image.sprite = null;
-            
+            p1Image.enabled = false;
+
 
         }
         if (other.gameObject.tag == "Player2")
@@ -53,7 +55,7 @@ public class OutOfBounds : MonoBehaviour {
             Destroy(other.gameObject);
             spawnPlayerScript.player2Exist = false;
             spawnPlayerScript.SpawnPlayer2();
-            p2Image.sprite = null;
+            p2Image.enabled = false;
 
 
         }
@@ -69,10 +71,17 @@ public class OutOfBounds : MonoBehaviour {
             Destroy(other.gameObject);
             spawnPlayerScript.player3Exist = false;
             spawnPlayerScript.SpawnPlayer3();
-            p3Image.sprite = null;
+            p3Image.enabled = false;
 
 
         }
+
+        if (other.gameObject.tag == "Push")
+        {
+
+            Destroy(other.gameObject);
+        }
+
 
     }
 }

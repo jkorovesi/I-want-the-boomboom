@@ -16,6 +16,9 @@ TagManager:
   - image3
   - image2
   - SpawnP1
+  - image4
+  - Push
+  - Bomb
   layers:
   - Default
   - TransparentFX

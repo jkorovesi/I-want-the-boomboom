@@ -25,6 +25,10 @@ public class P1ItemController : MonoBehaviour
     public GameObject pushPref;
     public Transform pushSpawn;
 
+    public AudioSource audioSource;
+    public AudioClip itemGet;
+    public AudioClip bombGet;
+
     GameObject bumperObj;
     GameObject pikeObj;
 
@@ -33,6 +37,7 @@ public class P1ItemController : MonoBehaviour
 
         image1 = GameObject.FindGameObjectWithTag("image1").GetComponent<Image>();
 
+
     }
 
 
@@ -40,67 +45,82 @@ public class P1ItemController : MonoBehaviour
     void Update()
     {
 
-            if (p1Item == null)
-            {
-                image1.sprite = null;
-            }
+        if (TimerManager.explode == true)
+        {
+            Destroy(this);
+        }
 
-            switch (p1Item)
+
+        switch (p1Item)
             {
                 case "Speed Boost":
-                    image1.sprite = speedBoostImg;
+                image1.enabled = true;
+                image1.sprite = speedBoostImg;
                     if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKey("joystick 1 button 3"))
                     {
                         StartCoroutine(SpeedTime());
                         playerController.speed = 60;
                         p1Item = null;
+                        image1.enabled = false;
                     }
                     break;
 
                 case "Bumper":
-                    image1.sprite = bumperImg;
+                image1.enabled = true;
+                image1.sprite = bumperImg;
                     if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKey("joystick 1 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Destroy(bumperObj);
                         bumperObj = Instantiate(bumperPref, bumperSpawn.position, bumperSpawn.rotation);
                         p1Item = null;
-
+                        image1.enabled = false;
                     }
                     break;
 
                 case "Size":
-                    image1.sprite = sizeImg;
+                image1.enabled = true;
+                image1.sprite = sizeImg;
                     if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKey("joystick 1 button 3"))
                     {
                         StartCoroutine(SizeTime());
                         if (BombManager.playerWithBomb == 1)
                         {
-                            transform.localScale = new Vector3(5f, 5f, 1f);
+                            
+                            transform.localScale = new Vector3(0.5f, 0.5f, 1f);
                         }
                         else
                         {
-                            transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+                            transform.localScale = new Vector3(4f, 4f, 1f);
                         }
                         p1Item = null;
+                        image1.enabled = false;
                     }
                     break;
 
                 case "Push":
-                    image1.sprite = pushImg;
+                image1.enabled = true;
+                image1.sprite = pushImg;
                     if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKey("joystick 1 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         Instantiate(pushPref, pushSpawn.position, pushSpawn.rotation);
                         p1Item = null;
+                        image1.enabled = false;
                     }
                     break;
 
                 case "Pike":
-                    image1.sprite = pikeImg;
+                image1.enabled = true;
+                image1.sprite = pikeImg;
                     if (Input.GetKeyDown(KeyCode.RightControl) || Input.GetKey("joystick 1 button 3"))
                     {
+                        transform.localScale = new Vector3(1f, 1f, 1f);
                         pikeObj = Instantiate(pikePrefab, pikeSpawn.position, pikeSpawn.rotation);
                         pikeObj.GetComponent<PikePosition>().pikeSpawnTransform = pikeSpawn;
+                        pikeObj.transform.parent = this.transform;
                         p1Item = null;
+                        image1.enabled = false;
                     }
                     break;
             }
@@ -133,11 +153,20 @@ public class P1ItemController : MonoBehaviour
         {
 
             p1Item = ItemGenerator.GetRandomItem();
+            audioSource.PlayOneShot(itemGet);
             Destroy(coll.gameObject);
 
 
 
             SpawnItemScript.itemsOnStage--;
+        }
+
+        if (coll.gameObject.tag == "Bomb")
+        {
+            BombManager.playerWithBomb = 1;
+            BombManager.playerHasBomb = true;
+            audioSource.PlayOneShot(bombGet);
+            Destroy(coll.gameObject);
         }
     }
 

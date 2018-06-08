@@ -15,8 +15,9 @@ public class SpawnItemScript : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
+        itemsOnStage = 0;
         SpawnBomb();
         InvokeRepeating("SpawnItem", 2.0f, 5.0f);
     }
